@@ -1,0 +1,35 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: react-deployment
+spec:
+  selector:
+    matchLabels:
+      app: vigmyapp
+  replicas: 2
+  template:
+    metadata:
+      labels:
+        app: vigmyapp
+    spec:
+      containers:
+      - name: vigmyapp
+        image: vigneshwar33/vigreactdemo
+        ports:
+        - containerPort: 3000
+
+---
+kind: Service
+apiVersion: v1
+metadata:
+  name: react-service
+spec:
+  selector:
+    app: vigmyapp
+  ports:
+  - port: 80
+    protocol: TCP
+    targetPort: 3000   
+  type: LoadBalancer
+
+
